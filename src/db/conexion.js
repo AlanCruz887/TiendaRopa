@@ -1,10 +1,11 @@
 import { createPool } from "mysql2/promise";
+import config from '../config.js';
 //revisar conexion a la base de datos creada
 
 export const db = createPool({
-  host: "localhost",
-  user: process.env.DB_USER || "root",
-  password: "HailedSquare881",
+  host: config.host,
+  user: config.user|| "root",
+  password: config.password|| "",
   port: "3306",
-  database: 'TiendaRopa'
+  database: config.db_name
 })
