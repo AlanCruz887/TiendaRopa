@@ -5,7 +5,7 @@ import config from '../config.js';
 export const db = createPool({
   host: config.host,
   user: config.user|| "root",
-  password: config.password|| "",
+  password: config.password|| "MSHarAcOVPRLOtgDsZI",
   port: config.db_port,
-  database: config.db_name
+  database: "railway"
 })
