@@ -1,3 +1,4 @@
+-- Active: 1698800313467@@roundhouse.proxy.rlwy.net@20932@railway
 -- Crear la base de datos TiendaRopa
 CREATE DATABASE TiendaRopa;
 
@@ -36,7 +37,7 @@ CREATE TABLE Venta (
     FechaVenta DATE,
     ClienteID INT,
     TotalVenta DECIMAL(10, 2),
-    MetodoPago VARCHAR(20),
+    MetodoPago VARCHAR(200),
     FOREIGN KEY (ClienteID) REFERENCES Clientes(ClienteID)
 );
 

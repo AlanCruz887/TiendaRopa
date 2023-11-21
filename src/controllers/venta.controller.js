@@ -65,15 +65,26 @@ export async function updateVenta(req, res) {
 // Eliminar una venta por ID
 export async function deleteVenta(req, res) {
   const ventaID = req.params.id;
+
   try {
-    const [result] = await db.execute('DELETE FROM Venta WHERE VentaID = ?', [ventaID]);
-    if (result.affectedRows === 0) {
-      res.status(404).json({ message: 'Venta no encontrada' });
+    // Consultar si existen detalles de venta relacionados con la venta a eliminar
+    const [result] = await db.execute('SELECT COUNT(*) AS count FROM DetalleVenta WHERE VentaID = ?', [ventaID]);
+    const rowCount = result[0].count;
+
+    if (rowCount > 0) {
+      res.status(400).json({ message: 'Primero debe eliminar los detalles de venta asociados a esta venta.' });
     } else {
-      res.status(200).json({ message: 'Venta eliminada con éxito' });
+      // No hay detalles de venta asociados, proceder con la eliminación de la venta
+      const [deleteResult] = await db.execute('DELETE FROM Venta WHERE VentaID = ?', [ventaID]);
+      if (deleteResult.affectedRows === 0) {
+        res.status(404).json({ message: 'Venta no encontrada' });
+      } else {
+        res.status(200).json({ message: 'Venta eliminada con éxito' });
+      }
     }
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Error al eliminar la venta' });
   }
 }
+

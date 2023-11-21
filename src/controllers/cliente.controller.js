@@ -13,7 +13,7 @@ export async function createCliente(req, res) {
     res.status(201).json({ message: 'Cliente creado con éxito', clienteID: result.insertId });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Error al crear el cliente' });
+    res.status(500).json({ error: 'Error al crear el cliente' } + error);
   }
 }
 
@@ -60,7 +60,7 @@ export async function updateCliente(req, res) {
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Error al actualizar el cliente' });
+    res.status(500).json({ error: 'Error al actualizar el cliente' + error});
   }
 }
 

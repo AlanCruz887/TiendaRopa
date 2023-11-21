@@ -7,5 +7,5 @@ export const db = createPool({
   user: config.user|| "root",
   password: config.password|| "MSHarAcOVPRLOtgDsZI",
   port: config.db_port,
-  database: "railway"
+  database: config.db_name
 })
